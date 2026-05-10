@@ -7,13 +7,14 @@ const nameEl = document.getElementById('user-name') as HTMLElement | null;
 async function init() {
   const navEntries = performance.getEntriesByType('navigation');
   const navType = (navEntries[0] as PerformanceNavigationTiming | undefined)?.type;
-  const cacheBusted = sessionStorage.getItem('t3_cache_busted') === 'yes';
 
-  let url = '/api/me';
-  if (navType === 'reload' && !cacheBusted) {
-    sessionStorage.setItem('t3_cache_busted', 'yes');
-    url = `/api/me?bust=${Date.now()}`;
-  }
+  // Intentional bug: only a reload appends the cache-bust query and gets a
+  // 200. Any plain navigation (e.g. arriving from /task-3/ login) hits the
+  // un-bust path and gets 401 → spinner forever. Every kind of reload
+  // (F5, Cmd+Shift+R, "Empty Cache and Hard Reload") works, every time.
+  const url = navType === 'reload'
+    ? `/api/me?bust=${Date.now()}`
+    : '/api/me';
 
   try {
     const res = await fetch(url, { credentials: 'same-origin' });
