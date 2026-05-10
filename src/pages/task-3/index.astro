@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Task 3 — Sign in">
+  <section class="card">
+    <header>
+      <h1>Sign in</h1>
+      <p class="subtitle">Use the pre-filled credentials to continue.</p>
+    </header>
+    <form id="t3-login-form" novalidate>
+      <div class="field">
+        <label class="label" for="t3-email">Email</label>
+        <input id="t3-email" name="email" type="email" value="user@example.com" readonly />
+      </div>
+      <div class="field">
+        <label class="label" for="t3-password">Password</label>
+        <input id="t3-password" name="password" type="password" value="secret123" readonly />
+      </div>
+      <button type="submit" id="t3-submit">Sign in</button>
+    </form>
+  </section>
+
+  <script>
+    import '../../scripts/task-3-login';
+  </script>
+
+  <style>
+    .card {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+    .subtitle {
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-5);
+    }
+    form { display: flex; flex-direction: column; gap: var(--space-4); }
+    .field { display: flex; flex-direction: column; gap: var(--space-2); }
+    .label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+    input {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+    input:focus-visible {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.18);
+    }
+    button[type='submit'] {
+      margin-top: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease;
+    }
+    button[type='submit']:hover { background: var(--color-primary-hover); }
+  </style>
+</BaseLayout>

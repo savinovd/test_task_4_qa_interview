@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TaskCard from '../components/TaskCard.astro';
+import { tasks } from '../data/tasks';
+---
+<BaseLayout title="QA Test Tasks" showBack={false}>
+  <section class="hero">
+    <h1>Test tasks</h1>
+    <p>A small set of interactive scenarios for QA candidate evaluation. Open a task and look for issues.</p>
+  </section>
+  <section class="grid">
+    {tasks.map((task) => <TaskCard task={task} />)}
+  </section>
+
+  <style>
+    .hero {
+      margin-bottom: var(--space-7);
+    }
+    .hero h1 {
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-3);
+    }
+    .hero p {
+      color: var(--color-fg-muted);
+      font-size: var(--text-lg);
+      max-width: 56ch;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--space-4);
+    }
+  </style>
+</BaseLayout>

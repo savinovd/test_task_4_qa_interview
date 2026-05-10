@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+
+type Props = {
+  title?: string;
+  showBack?: boolean;
+};
+
+const { title = 'QA Test Tasks', showBack = true } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="brand">QA Test Tasks</a>
+      {showBack && Astro.url.pathname !== '/' && (
+        <a href="/" class="back-link">← Back to tasks</a>
+      )}
+    </header>
+    <main class="site-main">
+      <slot />
+    </main>
+    <style>
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-4) var(--space-6);
+        border-bottom: 1px solid var(--color-border);
+        background: var(--color-surface);
+      }
+      .brand {
+        font-weight: 600;
+        font-size: var(--text-lg);
+        color: var(--color-fg);
+      }
+      .brand:hover { text-decoration: none; }
+      .back-link {
+        font-size: var(--text-sm);
+        color: var(--color-fg-muted);
+      }
+      .site-main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: var(--space-7) var(--space-6);
+      }
+    </style>
+  </body>
+</html>

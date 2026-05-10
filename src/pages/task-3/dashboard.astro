@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Task 3 — Dashboard">
+  <section class="dashboard">
+    <div id="loader" class="loader" role="status" aria-label="Loading">
+      <div class="spinner" aria-hidden="true"></div>
+    </div>
+    <div id="user-info" class="user-info" hidden>
+      <h1 id="user-name"></h1>
+    </div>
+  </section>
+
+  <script>
+    import '../../scripts/task-3-dashboard';
+  </script>
+
+  <style>
+    .dashboard {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader[hidden] { display: none; }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid var(--color-border);
+      border-top-color: var(--color-primary);
+      animation: spin 800ms linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .user-info { text-align: center; }
+    .user-info h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+    }
+  </style>
+</BaseLayout>

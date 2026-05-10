@@ -1,0 +1,96 @@
+---
+export const prerender = false;
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const { userId } = Astro.params;
+---
+<BaseLayout title="Onboarding — Gender">
+  <section class="card">
+    <p class="eyebrow">Step 1 of 3</p>
+    <h1>Pick your gender</h1>
+    <form id="gender-form">
+      <label class="option"><input type="radio" name="gender" value="Male" /> Male</label>
+      <label class="option"><input type="radio" name="gender" value="Female" /> Female</label>
+      <label class="option"><input type="radio" name="gender" value="Other" /> Other</label>
+      <button type="submit" id="next-btn" disabled>Next</button>
+    </form>
+  </section>
+
+  <script define:vars={{ userId }}>
+    // userId is provided to the page via Astro params for use in navigation only.
+    window.__t4_userId = userId;
+  </script>
+
+  <script>
+    import { trackSelect } from '../../../scripts/task-4';
+    const form = document.getElementById('gender-form') as HTMLFormElement | null;
+    const nextBtn = document.getElementById('next-btn') as HTMLButtonElement | null;
+    let selected: string | null = null;
+
+    form?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.name === 'gender') {
+        selected = target.value;
+        trackSelect(selected);
+        if (nextBtn) nextBtn.disabled = false;
+      }
+    });
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!selected) return;
+      sessionStorage.setItem('t4_gender', selected);
+      const userId = (window as unknown as { __t4_userId: string }).__t4_userId;
+      window.location.assign(`/task-4/${userId}/age`);
+    });
+  </script>
+
+  <style>
+    .card {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .eyebrow {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-2);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      margin-bottom: var(--space-5);
+    }
+    form { display: flex; flex-direction: column; gap: var(--space-3); }
+    .option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      cursor: pointer;
+      transition: border-color 120ms ease, background 120ms ease;
+    }
+    .option:hover { border-color: var(--color-border-strong); }
+    button[type='submit'] {
+      align-self: flex-start;
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease, opacity 120ms ease;
+    }
+    button[type='submit']:hover:not(:disabled) { background: var(--color-primary-hover); }
+    button[type='submit']:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</BaseLayout>

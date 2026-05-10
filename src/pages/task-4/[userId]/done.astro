@@ -1,0 +1,85 @@
+---
+export const prerender = false;
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Onboarding complete">
+  <section class="card">
+    <h1>Thank you!</h1>
+    <p class="lede">Your onboarding is complete. Here's what we know about you:</p>
+    <dl class="summary">
+      <div class="row">
+        <dt>Name</dt>
+        <dd id="summary-name">—</dd>
+      </div>
+      <div class="row">
+        <dt>Gender</dt>
+        <dd id="summary-gender">—</dd>
+      </div>
+      <div class="row">
+        <dt>Age</dt>
+        <dd id="summary-age">—</dd>
+      </div>
+    </dl>
+  </section>
+
+  <script>
+    const nameEl = document.getElementById('summary-name');
+    const genderEl = document.getElementById('summary-gender');
+    const ageEl = document.getElementById('summary-age');
+    if (nameEl) nameEl.textContent = sessionStorage.getItem('t4_name') ?? '—';
+    if (genderEl) genderEl.textContent = sessionStorage.getItem('t4_gender') ?? '—';
+    if (ageEl) ageEl.textContent = sessionStorage.getItem('t4_age') ?? '—';
+  </script>
+
+  <!--
+    Intentional bug: this page does NOT import or call the analytics module.
+    No event is fired (no page_open, no onboarding_complete).
+  -->
+
+  <style>
+    .card {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      margin-bottom: var(--space-3);
+      text-align: center;
+    }
+    .lede {
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-5);
+      text-align: center;
+    }
+    .summary {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin: 0;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .row:last-child { border-bottom: 0; }
+    dt {
+      font-size: var(--text-sm);
+      color: var(--color-fg-muted);
+    }
+    dd {
+      margin: 0;
+      font-size: var(--text-base);
+      font-weight: 500;
+      color: var(--color-fg);
+    }
+  </style>
+</BaseLayout>

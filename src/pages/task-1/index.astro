@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Task 1 — Age Form">
+  <section class="card">
+    <header>
+      <p class="eyebrow">Step 1 of 1</p>
+      <h1>What's your age?</h1>
+      <p class="subtitle">Enter a number to see your personalised content.</p>
+    </header>
+    <form id="age-form" novalidate>
+      <label for="age-input" class="label">Age</label>
+      <input
+        id="age-input"
+        name="age"
+        type="number"
+        inputmode="numeric"
+        placeholder="e.g. 28"
+        autocomplete="off"
+        required
+      />
+      <p id="age-error" class="error" role="alert" hidden></p>
+      <button type="submit" id="submit-btn">Continue</button>
+    </form>
+  </section>
+
+  <script>
+    import '../../scripts/task-1';
+  </script>
+
+  <style>
+    .card {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .eyebrow {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-2);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-2);
+    }
+    .subtitle {
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-5);
+    }
+    form { display: flex; flex-direction: column; gap: var(--space-3); }
+    .label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+    input[type='number'] {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      transition: border-color 120ms ease, box-shadow 120ms ease;
+    }
+    input[type='number']:hover { border-color: var(--color-fg-muted); }
+    input[type='number']:focus-visible {
+      border-color: var(--color-primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.18);
+    }
+    .error {
+      color: var(--color-danger);
+      font-size: var(--text-sm);
+    }
+    button[type='submit'] {
+      align-self: flex-start;
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease;
+    }
+    button[type='submit']:hover { background: var(--color-primary-hover); }
+  </style>
+</BaseLayout>

@@ -1,0 +1,90 @@
+---
+export const prerender = false;
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const { userId } = Astro.params;
+---
+<BaseLayout title="Onboarding — Age">
+  <section class="card">
+    <p class="eyebrow">Step 2 of 3</p>
+    <h1>How old are you?</h1>
+    <form id="age-form">
+      <input id="age-input" type="number" min="18" max="99" placeholder="e.g. 29" />
+      <button type="submit" id="next-btn" disabled>Next</button>
+    </form>
+  </section>
+
+  <script define:vars={{ userId }}>
+    window.__t4_userId = userId;
+  </script>
+
+  <script>
+    import { trackSelect } from '../../../scripts/task-4';
+    const form = document.getElementById('age-form') as HTMLFormElement | null;
+    const input = document.getElementById('age-input') as HTMLInputElement | null;
+    const next = document.getElementById('next-btn') as HTMLButtonElement | null;
+
+    input?.addEventListener('input', () => {
+      const v = Number(input.value);
+      const valid = Number.isFinite(v) && v >= 18 && v <= 99;
+      if (next) next.disabled = !valid;
+    });
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!input) return;
+      trackSelect(input.value);
+      sessionStorage.setItem('t4_age', input.value);
+      const userId = (window as unknown as { __t4_userId: string }).__t4_userId;
+      window.location.assign(`/task-4/${userId}/name`);
+    });
+  </script>
+
+  <style>
+    .card {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .eyebrow {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-2);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      margin-bottom: var(--space-5);
+    }
+    form { display: flex; flex-direction: column; gap: var(--space-3); }
+    input {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+    }
+    input:focus-visible {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.18);
+    }
+    button[type='submit'] {
+      align-self: flex-start;
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease, opacity 120ms ease;
+    }
+    button[type='submit']:hover:not(:disabled) { background: var(--color-primary-hover); }
+    button[type='submit']:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</BaseLayout>

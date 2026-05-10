@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Task 2 — Sign in">
+  <section class="card">
+    <header>
+      <h1>Sign in</h1>
+      <p class="subtitle">Welcome back.</p>
+    </header>
+    <form id="login-form" novalidate>
+      <div class="field">
+        <span class="label">Email</span>
+        <input id="email" name="email" type="email" placeholder="you@example.com" />
+        <p class="error" id="email-error" role="alert" hidden></p>
+      </div>
+      <div class="field">
+        <label for="password" class="label">Password</label>
+        <div class="password-row">
+          <input id="password" name="password" type="password" placeholder="••••••••" />
+          <button type="button" id="toggle-password" class="toggle" aria-label="Show password">
+            <span id="toggle-icon" aria-hidden="true">👁</span>
+          </button>
+        </div>
+        <p class="error" id="password-error" role="alert" hidden></p>
+      </div>
+      <p class="error global" id="form-error" role="alert" hidden></p>
+      <button type="submit" id="submit-btn" disabled>Sign in</button>
+      <p class="success" id="form-success" hidden>Welcome!</p>
+    </form>
+  </section>
+
+  <aside class="creds" aria-label="Test credentials">
+    <p class="creds-title">Test credentials</p>
+    <dl>
+      <div class="row">
+        <dt>Email</dt>
+        <dd><code>admin@example.com</code></dd>
+      </div>
+      <div class="row">
+        <dt>Password</dt>
+        <dd><code>password123</code></dd>
+      </div>
+    </dl>
+  </aside>
+
+  <script>
+    import '../../scripts/task-2';
+  </script>
+
+  <style>
+    .card {
+      max-width: 420px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+    .subtitle {
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-5);
+    }
+    form { display: flex; flex-direction: column; gap: var(--space-4); }
+    .field { display: flex; flex-direction: column; gap: var(--space-2); }
+    .label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+    }
+    input {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      transition: border-color 120ms ease, box-shadow 120ms ease;
+      width: 100%;
+    }
+    input:hover { border-color: var(--color-fg-muted); }
+    input:focus-visible {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.18);
+    }
+    .password-row { position: relative; }
+    /* Intentional bug: when revealed (type=text), text colour matches the
+       form's white surface, so the password becomes invisible. */
+    #password[type='text'] { color: var(--color-surface); }
+    .toggle {
+      position: absolute;
+      top: 50%;
+      right: var(--space-3);
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      padding: var(--space-2);
+      color: var(--color-fg-muted);
+    }
+    .error {
+      color: var(--color-danger);
+      font-size: var(--text-sm);
+    }
+    .error.global {
+      padding: var(--space-3);
+      background: var(--color-danger-bg);
+      border-radius: var(--radius-md);
+    }
+    .success {
+      color: var(--color-success);
+      font-size: var(--text-sm);
+    }
+    button[type='submit'] {
+      margin-top: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease, opacity 120ms ease;
+    }
+    button[type='submit']:hover:not(:disabled) { background: var(--color-primary-hover); }
+    button[type='submit']:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .creds {
+      max-width: 420px;
+      margin: var(--space-4) auto 0;
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-surface);
+      border: 1px dashed var(--color-border-strong);
+      border-radius: var(--radius-md);
+    }
+    .creds-title {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-3);
+    }
+    .creds dl { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; }
+    .creds .row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); }
+    .creds dt { font-size: var(--text-sm); color: var(--color-fg-muted); }
+    .creds dd { margin: 0; }
+    .creds code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: var(--text-sm);
+      padding: 2px var(--space-2);
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-fg);
+    }
+  </style>
+</BaseLayout>
