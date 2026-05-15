@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LangSwitcher from '../../components/LangSwitcher.astro';
+---
+<BaseLayout title="Task 5 — Onboarding">
+  <LangSwitcher slot="header-extras" />
+  <section class="card">
+    <img class="banner" src="/images/banner.webp" alt="Onboarding banner" />
+
+    <p class="eyebrow" data-i18n="step1.eyebrow">Step 1 of 3</p>
+    <h1 data-i18n="step1.heading">Tell us about yourself</h1>
+
+    <form id="step1-form" novalidate>
+      <div class="field">
+        <label class="label" for="age-input" data-i18n="step1.field.age">Age</label>
+        <input id="age-input" type="number" min="1" max="120" required data-i18n-attr-placeholder="step1.field.age.placeholder" placeholder="e.g. 29" />
+      </div>
+
+      <div class="field">
+        <span class="label" data-i18n="step1.field.gender">Gender</span>
+        <div class="radio-row">
+          <label class="radio"><input type="radio" name="gender" value="Male" /><span data-i18n="step1.gender.male">Male</span></label>
+          <label class="radio"><input type="radio" name="gender" value="Female" /><span data-i18n="step1.gender.female">Female</span></label>
+          <label class="radio"><input type="radio" name="gender" value="Other" /><span data-i18n="step1.gender.other">Other</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="name-input" data-i18n="step1.field.name">Your name</label>
+        <input id="name-input" type="text" required data-i18n-attr-placeholder="step1.field.name.placeholder" placeholder="e.g. Alex" />
+      </div>
+
+      <!-- Intentional bug: this CTA is hardcoded English; it never updates
+           when the user switches language. -->
+      <button type="submit" id="step1-cta">Continue</button>
+
+      <p class="trust" data-i18n="step1.trust">Trusted by 10,000+ users worldwide</p>
+    </form>
+  </section>
+
+  <script>
+    import '../../scripts/task-5-step1';
+  </script>
+
+  <style>
+    .card {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .banner {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-5);
+    }
+    .eyebrow {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-2);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-5);
+    }
+    form { display: flex; flex-direction: column; gap: var(--space-4); }
+    .field { display: flex; flex-direction: column; gap: var(--space-2); }
+    .label { font-size: var(--text-sm); font-weight: 500; }
+    input[type='number'], input[type='text'] {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+    }
+    input:focus-visible {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(47, 91, 255, 0.18);
+    }
+    .radio-row { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .radio {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition: border-color 120ms ease;
+    }
+    .radio:hover { border-color: var(--color-border-strong); }
+    button[type='submit'] {
+      align-self: flex-start;
+      margin-top: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease;
+    }
+    button[type='submit']:hover { background: var(--color-primary-hover); }
+    .trust {
+      margin-top: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-fg-muted);
+    }
+  </style>
+</BaseLayout>

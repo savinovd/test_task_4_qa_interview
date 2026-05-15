@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LangSwitcher from '../../components/LangSwitcher.astro';
+---
+<BaseLayout title="Task 5 — Success">
+  <LangSwitcher slot="header-extras" />
+  <section class="card">
+    <p class="eyebrow" data-i18n="success.eyebrow">Step 3 of 3</p>
+    <h1 id="success-heading" data-i18n="success.heading">Welcome!</h1>
+    <p id="success-body" data-i18n="success.body">You are on the plan.</p>
+
+    <dl class="summary">
+      <div class="row">
+        <dt data-i18n="success.field.age">Age</dt>
+        <dd id="summary-age">—</dd>
+      </div>
+      <div class="row">
+        <dt data-i18n="success.field.gender">Gender</dt>
+        <dd id="summary-gender">—</dd>
+      </div>
+      <div class="row">
+        <dt data-i18n="success.field.plan">Plan</dt>
+        <dd id="summary-plan">—</dd>
+      </div>
+    </dl>
+
+    <a href="/task-5/" class="cta" data-i18n="success.cta">Start over</a>
+  </section>
+
+  <script>
+    import '../../scripts/task-5-success';
+  </script>
+
+  <style>
+    .card {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .eyebrow {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-2);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+    #success-body {
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-5);
+    }
+    .summary {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0 0 var(--space-5);
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .row:last-child { border-bottom: 0; }
+    dt { font-size: var(--text-sm); color: var(--color-fg-muted); }
+    dd { margin: 0; font-size: var(--text-base); font-weight: 500; color: var(--color-fg); }
+    .cta {
+      display: inline-block;
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease;
+    }
+    .cta:hover { background: var(--color-primary-hover); text-decoration: none; }
+  </style>
+</BaseLayout>

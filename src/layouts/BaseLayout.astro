@@ -18,9 +18,12 @@ const { title = 'QA Test Tasks', showBack = true } = Astro.props;
   <body>
     <header class="site-header">
       <a href="/" class="brand">QA Test Tasks</a>
-      {showBack && Astro.url.pathname !== '/' && (
-        <a href="/" class="back-link">← Back to tasks</a>
-      )}
+      <div class="header-end">
+        <slot name="header-extras" />
+        {showBack && Astro.url.pathname !== '/' && (
+          <a href="/" class="back-link">← Back to tasks</a>
+        )}
+      </div>
     </header>
     <main class="site-main">
       <slot />
@@ -40,6 +43,11 @@ const { title = 'QA Test Tasks', showBack = true } = Astro.props;
         color: var(--color-fg);
       }
       .brand:hover { text-decoration: none; }
+      .header-end {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+      }
       .back-link {
         font-size: var(--text-sm);
         color: var(--color-fg-muted);

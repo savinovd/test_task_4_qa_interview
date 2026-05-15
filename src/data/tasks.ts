@@ -39,4 +39,12 @@ export const tasks: TaskMeta[] = [
     tags: ['Analytics', 'Network', 'Multi-step flow'],
     href: '/task-4/',
   },
+  {
+    slug: 'task-5',
+    title: 'Task 5: Localization',
+    summary:
+      'Test a 3-step onboarding in English, Spanish (MX) and Ukrainian — translations, formatting, layout, switcher.',
+    tags: ['i18n', 'L10n', 'Formatting'],
+    href: '/task-5/',
+  },
 ];

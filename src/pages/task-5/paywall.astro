@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LangSwitcher from '../../components/LangSwitcher.astro';
+---
+<BaseLayout title="Task 5 — Paywall">
+  <LangSwitcher slot="header-extras" />
+  <section class="card">
+    <p class="eyebrow" data-i18n="paywall.eyebrow">Step 2 of 3</p>
+    <h1 data-i18n="paywall.heading">Choose your plan</h1>
+    <p class="trial" id="trial-line" data-i18n="paywall.trial">Trial ends in 7 days.</p>
+
+    <div class="plans">
+      <label class="plan">
+        <input type="radio" name="plan" value="basic" checked />
+        <div class="plan-body">
+          <p class="plan-name" data-i18n="paywall.plan.basic.name">Basic</p>
+          <p class="plan-price" id="price-basic" data-i18n="paywall.price.month">$9.99 / month</p>
+          <p class="plan-desc" data-i18n="paywall.plan.basic.desc">Everything you need to get started.</p>
+        </div>
+      </label>
+      <label class="plan">
+        <input type="radio" name="plan" value="pro" />
+        <div class="plan-body">
+          <p class="plan-name" data-i18n="paywall.plan.pro.name">Pro</p>
+          <p class="plan-price" id="price-pro" data-i18n="paywall.price.month">$14.99 / month</p>
+          <p class="plan-desc" data-i18n="paywall.plan.pro.desc">For power users who want it all.</p>
+        </div>
+      </label>
+    </div>
+
+    <button type="button" id="checkout-cta" class="cta" data-i18n="paywall.cta">Continue to checkout</button>
+  </section>
+
+  <script>
+    import '../../scripts/task-5-paywall';
+  </script>
+
+  <style>
+    .card {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: var(--space-7);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .eyebrow {
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-fg-muted);
+      margin-bottom: var(--space-2);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-3);
+    }
+    .trial {
+      color: var(--color-fg-muted);
+      font-size: var(--text-sm);
+      margin-bottom: var(--space-5);
+    }
+    .plans { display: grid; gap: var(--space-3); margin-bottom: var(--space-5); }
+    .plan {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-5);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: border-color 120ms ease, background 120ms ease;
+    }
+    .plan:hover { border-color: var(--color-border-strong); }
+    .plan input[type='radio'] { margin-top: 2px; }
+    .plan-body { display: flex; flex-direction: column; gap: var(--space-1); }
+    .plan-name { font-weight: 600; font-size: var(--text-lg); color: var(--color-fg); }
+    .plan-price { font-size: var(--text-base); color: var(--color-fg); font-weight: 500; }
+    .plan-desc { font-size: var(--text-sm); color: var(--color-fg-muted); }
+    .cta {
+      /* Intentional layout bug: white-space:nowrap + overflow:hidden +
+         text-overflow:ellipsis means that long translations (es-MX CTA in
+         particular) get clipped with "...". */
+      display: inline-block;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: var(--space-3) var(--space-5);
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border: 0;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: background 120ms ease;
+    }
+    .cta:hover { background: var(--color-primary-hover); }
+  </style>
+</BaseLayout>

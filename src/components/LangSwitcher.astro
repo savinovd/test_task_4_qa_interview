@@ -1,0 +1,36 @@
+---
+import { LOCALES, LOCALE_LABELS } from '../i18n/types';
+---
+<div class="lang-switch" role="group" aria-label="Language">
+  {LOCALES.map((locale) => (
+    <button type="button" class="lang-btn" data-locale={locale}>
+      {LOCALE_LABELS[locale]}
+    </button>
+  ))}
+</div>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .lang-btn {
+    appearance: none;
+    background: var(--color-surface);
+    border: 0;
+    border-right: 1px solid var(--color-border);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .lang-btn:last-child { border-right: 0; }
+  .lang-btn:hover { background: var(--color-bg); color: var(--color-fg); }
+  .lang-btn[aria-current='true'] {
+    background: var(--color-primary);
+    color: var(--color-primary-fg);
+  }
+</style>
